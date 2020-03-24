@@ -170,11 +170,7 @@ public class Parser {
         if (parser.parseProgram()) {
             System.out.println("Valid Program");
             System.out.println(parser.symTab);
-
-            for (int data : parser.interpreter.getDataMembers()) {
-                System.out.print(data + " ");
-            }
-            System.out.println();
+            parser.interpreter.run();
         } else {
             System.out.println("invalid Program");
         }
