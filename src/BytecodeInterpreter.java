@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class BytecodeInterpreter {
     private final ArrayList<Integer> dataMembers = new ArrayList<>();
@@ -10,21 +11,10 @@ public class BytecodeInterpreter {
     public final int LOADI_OP = 1;
     public final int STORE_OP = 2;
 
-
     public void generate(int op, int operand) {
         dataMembers.add(op);
         dataMembers.add(operand);
     }
-
-
-    public ArrayList<Integer> getDataMembers() {
-        return dataMembers;
-    }
-
-    public ArrayList<Integer> getMemoryArray() {
-        return memoryArray;
-    }
-
 
     public ArrayList<Integer> getDataMembers() {
         return dataMembers;
@@ -79,12 +69,11 @@ public class BytecodeInterpreter {
                 else
                     store(operand);
             } catch (Exception e) {
-                System.out.println();
                 log(true, "Error: Address out of range");
                 return;
             }
         }
-
+        log(false, "");
     }
 
     public void log(boolean error, String errorStr) {

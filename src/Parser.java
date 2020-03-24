@@ -15,7 +15,6 @@ public class Parser {
 
     public Parser(String fileName) {
         Lexer lexer = new Lexer(fileName);
-        System.out.println(lexer.buffer);
         tokens = lexer.getAllTokens();
     }
 
@@ -163,10 +162,8 @@ public class Parser {
     }
 
     public static void main(String[] args) {
-        Parser parser = new Parser("resources/testWhiteSpace.txt");
-        for (Token t : parser.tokens) {
-            System.out.println(t);
-        }
+        Parser parser = new Parser("resources/.txt");
+
         if (parser.parseProgram()) {
             System.out.println("Valid Program");
             System.out.println(parser.symTab);
