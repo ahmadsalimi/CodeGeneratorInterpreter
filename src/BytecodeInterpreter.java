@@ -37,6 +37,14 @@ public class BytecodeInterpreter {
 
     }
 
+    public ArrayList<Integer> getDataMembers() {
+        return dataMembers;
+    }
+
+    public ArrayList<Integer> getMemoryArray() {
+        return memoryArray;
+    }
+
     public static void main(String[] args) {
         BytecodeInterpreter interpreter = new BytecodeInterpreter(3);
         interpreter.generate(0, 1);

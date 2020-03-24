@@ -124,15 +124,15 @@ public class Parser {
                     interpreter.generate(interpreter.LOAD_OP, symTab.getAddress(t.getValue()));
                 }
 
+                if (t.getType() == Lexer.INTTOKEN) {
+                    interpreter.generate(interpreter.LOADI_OP, Integer.parseInt(t.getValue()));
+                }
+
                 t = nextToken();
                 if (t.getType() == Lexer.PLUSTOKEN) {
                     t = nextToken();
 
-                    if (t.getType() == Lexer.INTTOKEN) {
-                        interpreter.generate(interpreter.LOADI_OP, Integer.parseInt(t.getValue()));
-                    } else if (t.getType() == Lexer.IDTOKEN) {
-                        interpreter.generate(interpreter.LOAD_OP, symTab.getAddress(t.getValue()));
-                    } else {
+                    if (t.getType() != Lexer.INTTOKEN && t.getType() != Lexer.IDTOKEN) {
                         printError("expecting id or int");
                         return false;
                     }
@@ -163,7 +163,7 @@ public class Parser {
     }
 
     public static void main(String[] args) {
-        Parser parser = new Parser("resources/twoVariable.txt");
+        Parser parser = new Parser("resources/testWhiteSpace.txt");
         for (Token t : parser.tokens) {
             System.out.println(t);
         }
@@ -171,6 +171,16 @@ public class Parser {
             System.out.println("Valid Program");
             System.out.println(parser.symTab);
 
+            for (int data : parser.interpreter.getDataMembers()) {
+                System.out.print(data + " ");
+            }
+            System.out.println();
+
+            for (String variable : parser.symTab.map.keySet()) {
+                System.out.println(variable + " = " + parser.interpreter.getMemoryArray().get(parser.symTab.map.get(variable)));
+            }
+
+            System.out.println(parser.interpreter);
         } else {
             System.out.println("invalid Program");
         }
