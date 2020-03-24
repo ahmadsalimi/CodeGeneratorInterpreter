@@ -175,16 +175,9 @@ public class Parser {
                 System.out.print(data + " ");
             }
             System.out.println();
-
-            for (String variable : parser.symTab.map.keySet()) {
-                System.out.println(variable + " = " + parser.interpreter.getMemoryArray().get(parser.symTab.map.get(variable)));
-            }
-
-            System.out.println(parser.interpreter);
         } else {
             System.out.println("invalid Program");
         }
-
     }
 
 
