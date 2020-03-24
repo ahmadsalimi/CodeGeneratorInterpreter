@@ -9,7 +9,7 @@ public class Parser {
 
     ArrayList<Token> tokens;
     SymTab symTab = new SymTab();
-    private BytecodeInterpreter interpreter = new BytecodeInterpreter(10000);
+    private BytecodeInterpreter interpreter = new BytecodeInterpreter(10);
 
     int index;
 
