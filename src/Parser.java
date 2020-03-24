@@ -160,7 +160,7 @@ public class Parser {
     }
 
     public static void main(String[] args) {
-        Parser parser = new Parser("testNotDefined.txt");
+        Parser parser = new Parser("resources/twoVariable.txt");
         for (Token t : parser.tokens) {
             System.out.println(t);
         }
