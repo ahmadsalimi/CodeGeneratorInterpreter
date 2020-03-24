@@ -32,10 +32,7 @@ public class Lexer {
      */
     public Lexer(String fileName) {
         getInput(fileName);
-
     }
-
-
 
     /**
      * Reads given file into the data member buffer
@@ -53,9 +50,6 @@ public class Lexer {
             Scanner scanner = new Scanner(System.in);
             buffer=scanner.nextLine();
         }
-
-
-
     }
 
     /**
@@ -100,6 +94,7 @@ public class Lexer {
         return t;
 
     }
+
     /**
      * if we get here, we've seen first letter in id. This func gets the rest
      * @return the token, its type will be ID
@@ -126,6 +121,7 @@ public class Lexer {
         Token t = new Token(IDTOKEN, value, lineNum);
         return t;
     }
+
     /**
      * if we get here, we've seen first digit in int This func gets the rest
      * @return the token, its type will be INT
@@ -168,8 +164,6 @@ public class Lexer {
         return tokens;
     }
 
-
-
     public static void main(String[] args) {
         String fileName="idNums.txt";
 //        if (args.length==0) {
@@ -186,8 +180,6 @@ public class Lexer {
         for(Token t: tokens){
             System.out.println(t);
         }
-
-
     }
 }
 	

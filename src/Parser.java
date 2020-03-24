@@ -9,6 +9,7 @@ public class Parser {
 
     ArrayList<Token> tokens;
     SymTab symTab = new SymTab();
+    private BytecodeInterpreter interpreter = new BytecodeInterpreter(10000);
 
     int index;
 
@@ -16,7 +17,6 @@ public class Parser {
         Lexer lexer = new Lexer(fileName);
         System.out.println(lexer.buffer);
         tokens = lexer.getAllTokens();
-
     }
 
     /**
@@ -66,23 +66,19 @@ public class Parser {
         idToken = parseIdentifier();
         if (idToken != null) {
             if (parseAssignOp()) {
-
                 if (parseExpression()) {
-
+                    interpreter.generate(interpreter.STORE_OP, symTab.getAddress(idToken.getValue()));
                     return true;
-                } else {
-                    return false;
                 }
+                return false;
             } else {
                 printError("Expecting assignment operator");
                 return false;
             }
-
         } else {
             printError("Expecting identifier");
             return false;
         }
-
     }
 
     /**
@@ -91,7 +87,6 @@ public class Parser {
      * @return true if the current token is an id
      */
     public Token parseIdentifier() {
-
         Token t = nextToken();
         if (t.getType().equals(Lexer.IDTOKEN)) {
             symTab.add(t.getValue());
@@ -126,14 +121,22 @@ public class Parser {
                         printError("variable undefined");
                         return false;
                     }
+                    interpreter.generate(interpreter.LOAD_OP, symTab.getAddress(t.getValue()));
                 }
+
                 t = nextToken();
                 if (t.getType() == Lexer.PLUSTOKEN) {
                     t = nextToken();
-                    if (!((t.getType() == Lexer.INTTOKEN) || (t.getType() == Lexer.IDTOKEN))) {
+
+                    if (t.getType() == Lexer.INTTOKEN) {
+                        interpreter.generate(interpreter.LOADI_OP, Integer.parseInt(t.getValue()));
+                    } else if (t.getType() == Lexer.IDTOKEN) {
+                        interpreter.generate(interpreter.LOAD_OP, symTab.getAddress(t.getValue()));
+                    } else {
                         printError("expecting id or int");
                         return false;
                     }
+
                 } else {
                     putTokenBack();
                     return true;
