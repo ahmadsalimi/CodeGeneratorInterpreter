@@ -46,7 +46,7 @@ public class BytecodeInterpreter {
     }
 
     public static void main(String[] args) {
-        BytecodeInterpreter interpreter = new BytecodeInterpreter(3);
+        BytecodeInterpreter interpreter = new BytecodeInterpreter(10);
         interpreter.generate(0, 1);
         interpreter.generate(2, 5);
         interpreter.generate(3, 7);
